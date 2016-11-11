@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <math.h> 
+
+void Transform(float a[100][100],int n); /*通过 高斯消元 将行列式转换成上三角行列式 */
+
+int main(void)
+{
+	int i,j,n;
+	float result = 1,a[100][100];
+	
+	printf("Please input the order of determinant:");/*输入行列式阶数*/
+	scanf("%d",&n);
+	
+	printf("Please input the determinant:\n");      /*读入行列式*/
+	for(i = 0;i < n;i++){
+		for(j = 0;j < n;j++)
+			scanf("%f",&a[i][j]);
+	}
+	
+	Transform(a,n);
+	
+	printf("\nAfter changing:\n");     /*输出转换后的行列式*/
+	for(i = 0;i < n;i++){
+		for(j = 0;j < n;j++)
+			printf("%.2f ",a[i][j]);
+			printf("\n");
+	}
+	
+	for(i = 0;i < n;i++)
+		result *= a[i][i];/*计算结果*/
+	
+	printf("\nThe result is : %.0f\n",result);
+	
+	return 0;
+}
+
+void Transform(float a[100][100],int n)
+{
+	int i,j,k,sum;
+	double r; 
+	
+	for(i = 0;i <= n - 2;i++){
+		for(j = i + 1;j <= n - 1;j++){
+			r = (a[j][i])/(a[i][i]);
+			for(k = 0;k <= n - 1;k++){
+				a[j][k] = a[j][k] -  a[i][k] * r;   
+			}
+		}
+	}	
+	
+	return ;
+} 
